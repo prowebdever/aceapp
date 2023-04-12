@@ -1,0 +1,54 @@
+﻿@model AceApp.Data.ContactUsDto;
+<div class="ace-card p-lg-4 p-2">
+    <form id="formContactUs" asp-action="ContactUs" asp-controller="Account" method="POST" data-ajax="true" data-ajax-update="response_contact_us" data-ajax-begin="onBegin" data-ajax-complete="onComplete" data-ajax-failure="onContactUsFailed" data-ajax-success="onContactUsSuccess">
+        <div id="response_contact_us"></div>
+        <div class="row mt-0">
+            <div class="col-12">
+                <span class="ace-span ace-black" style="font-size:15px;">The Web Site Support Center offers support for questions related to the use of this web site. We encourage you to use this Center for non-urgent communication with support personnel. Please call us at 888-816-2436 for problems that require immediate attention or relate to issues other than use of this site.</span>
+            </div>
+        </div>
+        <div class="row mt-0">
+            <div class="col-md-6 mt-3">
+                <div class="form-wrap">
+                    @Html.LabelFor(x => x.FirstName, "First Name")
+                    @Html.TextBoxFor(x => x.FirstName, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "First Name", autocomplete = "off" })
+                    @Html.ValidationMessageFor(x => x.FirstName)
+                </div>
+            </div>
+            <div class="col-md-6 mt-3">
+                <div class="form-wrap">
+                    @Html.LabelFor(x => x.LastName, "Last Name")
+                    @Html.TextBoxFor(x => x.LastName, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Last Name", autocomplete = "off" })
+                    @Html.ValidationMessageFor(x => x.LastName)
+                </div>
+            </div>
+        </div>
+        <div class="row mt-0">
+            <div class="col-md-6 mt-3">
+                <div class="form-wrap">
+                    @Html.LabelFor(x => x.Email, "Your Email Address")
+                    @Html.TextBoxFor(x => x.Email, new { @class = "ace-form-input form-control-has-validation form-control-last-child", @type="email", placeholder = "Email Address", autocomplete = "off" })
+                    @Html.ValidationMessageFor(x => x.Email)
+                </div>
+            </div>
+        </div>
+        <div class="row mt-0">
+            <div class="col-md-12 mt-3">
+                <div class="form-wrap">
+                    @Html.LabelFor(x => x.Description, "Description of issue")
+                    @Html.TextAreaFor(x => x.Description, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Description of issue", autocomplete = "off" })
+                    @Html.ValidationMessageFor(x => x.Description)
+                </div>
+            </div>
+        </div>
+        <div class="row mt-0">
+            <div class="col-12 mt-3">
+                <button class="btn ace-btn-register px-5"><span class="">Send</span></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+<head>
+    <!-- Site Title-->
+    <title>AceApp</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="description" content="@ViewBag.Description">
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Kanit:300,400,500,500i,600%7CRoboto:400,900">
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/fonts.css" />
+    <link rel="stylesheet" href="~/css/style.css?v=4" id="main-styles-link" />
+    <link rel="stylesheet" href="~/css/custom.css" />
+    <link rel="stylesheet" href="~/css/ace.css" />
+    <link href="~/css/jquery.mCustomScrollbar.css" rel="stylesheet" />
+    <link href="~/css/sweetalert.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+    <link href="~/css/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/css/material-design-iconic-font.min.css" rel="stylesheet" />
+
+</head>
+
+<body onload="ActiveLink()">
+    <div id="preloader">
+        <div class="preloader-body">
+            <div class="img">
+                <img src="~/images/loading.gif" />
+            </div>
+        </div>
+    </div>
+    <!-- Page-->
+    <div class="page">
+        <!-- Page Header-->
+        <header class="section page-header rd-navbar-dark">
+            <!--  Navbar-->
+            <div class="rd-navbar-wrap">
+                <nav class="rd-navbar rd-navbar-classic" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-fixed" data-xl-device-layout="rd-navbar-fixed" data-xxl-layout="rd-navbar-fixed" data-xxl-device-layout="rd-navbar-fixed" data-lg-stick-up-offset="0px" data-xl-stick-up-offset="0px" data-xxl-stick-up-offset="0px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+                    <div class="rd-navbar-panel">
+                        <!--  Navbar Toggle-->
+                        <button class="rd-navbar-toggle tarun hidden-lg hidden-md" data-rd-navbar-toggle=".rd-navbar-main"><span></span></button>
+                        <!--  Navbar Panel-->
+                        <div class="rd-navbar-panel-inner container">
+                            <div class="rd-navbar-brand hidden-lg hidden-md">
+                                <a class="brand" href="/" style="margin-left:-40px; width:200px;"><img class="brand-logo" src="~/images/ace_logo.png" alt="" style="height:56px;" /></a>
+                            </div>
+                            <div class="rd-navbar-panel-item rd-navbar-panel-item-left">
+                                <div class="rd-navbar-brand hidden-grt-xs">
+                                    <a class="brand" href="/"><img class="brand-logo" src="~/images/ace_logo.png" alt="" width="155" height="80" /></a>
+                                </div>
+                            </div>
+                            <div class="rd-navbar-panel-item rd-navbar-panel-item-right">
+                                <ul class="list-inline hidden-grt-xs">
+                                    <li class="rd-nav-item about_us"><a class="rd-nav-link" href="#">About Us</a></li>
+                                    <li class="rd-nav-item active services"><a class="rd-nav-link" href="/">Services</a></li>
+                                    <li class="rd-nav-item employment"><a class="rd-nav-link" href="">Employment</a></li>
+                                    <li class="rd-nav-item fa1"><a class="rd-nav-link" href="">FAQ</a></li>
+                                    <li class="rd-nav-item contact_us"><a class="rd-nav-link" href="">Contact Us</a></li>
+                                </ul>
+                                <ul class="list-inline list-inline-bordered custom-display hidden-grt-xs">
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        using (Html.BeginForm("SignOut", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                        }
+                                        <li><a class="link link-icon link-icon-left link-classic" href="/"><span class="fa fa-user"></span> <span class="link-icon-text">@User.Identity.Name</span></a></li>
+                                        <li><a class="link link-icon link-icon-left link-classic" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a class="btn ace-btn-register" href="/register"><span class="">Register</span></a></li>
+                                        <li><a class="btn ace-btn-login" href="/login"><span class="">Member Sign In</span></a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rd-navbar-main hidden-md hidden-lg">
+                        <div class="rd-navbar-main-bottom">
+                            <div class="rd-navbar-main-container container">
+                                <!-- Navbar Nav-->
+                                <ul class="rd-navbar-nav">
+                                    <li class="rd-nav-item about_us"><a class="rd-nav-link" href="#">About Us</a></li>
+                                    <li class="rd-nav-item active services"><a class="rd-nav-link" href="/">Services</a></li>
+                                    <li class="rd-nav-item employment"><a class="rd-nav-link" href="">Employment</a></li>
+                                    <li class="rd-nav-item faq"><a class="rd-nav-link" href="">FAQ</a></li>
+                                    <li class="rd-nav-item contact_us"><a class="rd-nav-link" href="">Contact Us</a></li>
+                                </ul>
+                                <ul class="rd-navbar-nav custom-button-li ">
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        using (Html.BeginForm("SignOut", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                        }
+                                        <li><a class="link link-icon link-icon-left link-classic" href="/"><span class="fa fa-user"></span> <span class="link-icon-text">@User.Identity.Name</span></a></li>
+                                        <li><a class="link link-icon link-icon-left link-classic" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a class="btn ace-btn-register" href="/register"><span class="">Register</span></a></li>
+                                        <li><a class="btn ace-btn-login mt-2" href="/login"><span class="">Member Sign In</span></a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <section class="ace-bg-header">
+        </section>
+        @RenderBody()
+
+        <!-- Page Footer-->
+        <footer class="section footer-classic-dark">
+            <div class="footer-classic-main">
+                <div class="container">
+                    <div class="row row-50">
+                        <div class="col-lg-4">
+                            <h5 class="ace-footer-title">ACE</h5>
+                            <h6 class="ace-footer-li">American Computer Estimating, Inc.</h6>
+                            <div class="row p-l15 mt-2">
+                                <div class="group-md group-middle">
+                                    <div class="group-item">
+                                        <ul class="list-inline list-inline-xs">
+                                            <li>
+                                                <a href="">
+                                                    <i class="fa fa-facebook-official" style="color: #fff; font-size: 56px;" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="" href="">
+                                                    <i class="fa fa-linkedin-square" style="color: #fff; font-size: 56px;" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <h6 class="ace-footer-li">© 2000 - 2019 </h6>
+                        </div>
+                        <div class="col-lg-2">
+                            <h5 class="ace-footer-li font-weight-bold">Privacy</h5>
+                            <h5 class="ace-footer-li font-weight-bold mt-4">Disclaimer</h5>
+                        </div>
+                        <div class="col-lg-3">
+                            <h5 class="ace-footer-li font-weight-bold">Address</h5>
+                            <h5 class="ace-footer-li ace-gray">1155 Phoenixville Pike</h5>
+                            <h5 class="ace-footer-li ace-gray">Suite 109</h5>
+                            <h5 class="ace-footer-li ace-gray">West Chester, PA 19380</h5>
+                        </div>
+                        <div class="col-lg-3">
+                            <h5 class="ace-footer-li font-weight-bold">Phone</h5>
+                            <h5 class="ace-footer-li ace-gray">888-816-2436</h5>
+                            <h5 class="ace-footer-li font-weight-bold mt-2">Fax</h5>
+                            <h5 class="ace-footer-li ace-gray">610-429-3131</h5>
+                            <h5 class="ace-footer-li font-weight-bold mt-2">Email</h5>
+                            <h5 class="ace-footer-li ace-gray">info@ace-it.com</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- Modal -->
+    <!-- Javascript-->
+    <script src="~/js/core.min.js" type="text/javascript"></script>
+    <script src="~/js/script.js" type="text/javascript"></script>
+    <script src="~/js/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
+    <script src="~/js/sweetalert.min.js" type="text/javascript"></script>
+    <script src="~/js/CustomFunction.js" type="text/javascript"></script>
+    <script src="~/lib/jquery.unobtrusive-ajax.js" type="text/javascript"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/js/jquery.mCustomScrollbar.js"></script>
+    <script src="~/js/jquery.mask.min.js"></script>
+    @RenderSection("Scripts", required: false)
+    <script>
+        $(".phone-us").mask('000-000-0000');
+    </script>
+</body>
+
+</html>
+

@@ -1,0 +1,61 @@
+﻿@using AceApp.Data
+@model AceApp.Data.LoginUserDto;
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="ace-body section">
+    <div class="container py-4">
+        <div class="row mt-0 mx-0">
+            <div class="col-md-8 mt-2 d-flex align-items-center">
+                <span class="ace-sub-title">Member Login</span>
+            </div>
+        </div>
+        <div class="row mt-0 mx-0">
+            <div class="col-md-6 mt-2 offset-md-3">
+                <div class="ace-card p-lg-4 p-2 mt-lg-4 mt-2">
+                    <form id="formLogin" asp-action="MemberSignIn" asp-controller="Account" method="POST" data-ajax="true" data-ajax-update="response" data-ajax-begin="onBegin" data-ajax-complete="onComplete" data-ajax-failure="onFailed" data-ajax-success="onLoginSuccess">
+                        <!-- Company part -->
+                        <div id="response"></div>
+                        <input type="hidden" value="@ViewBag.ReturnUrl" name="ReturnUrl" id="ReturnUrl" />
+                        <div class="row mt-0">
+                            <div class="col-md-12 mt-3">
+                                <div class="form-wrap">
+                                    @Html.LabelFor(x => x.UserID, "User ID")
+                                    @Html.TextBoxFor(x => x.UserID, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "User ID" })
+                                    @Html.ValidationMessageFor(x => x.UserID)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-0">
+                            <div class="col-md-12 mt-3">
+                                <div class="form-wrap">
+                                    @Html.LabelFor(x => x.Password, "Password")
+                                    @Html.PasswordFor(x => x.Password, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Password" })
+                                    @Html.ValidationMessageFor(x => x.Password)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-0">
+                            <div class="col-12 mt-3 text-center">
+                                <button class="btn ace-btn-register"><span class="">Sign in</span></button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        
+
+    });
+</script>
+}

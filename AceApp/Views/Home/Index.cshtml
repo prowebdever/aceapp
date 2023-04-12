@@ -1,0 +1,142 @@
+﻿@model AceApp.Data.UserDetailDto;
+
+@{
+    ViewData["Title"] = "Claims Portal";
+}
+<section class="ace-body section">
+    <div class="container py-4">
+        <span class="ace-title">Claims Portal</span>
+        <div class="tabs-custom tabs-horizontal tabs-corporate no-border no-shadow">
+            <div class="tabs-modern" id="tabs-modern">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item" role="presentation"><a class="ace-nav-link active" href="#tabs-modern-1" data-toggle="tab">Claims</a></li>
+                    <li class="nav-item" role="presentation"><a class="ace-nav-link " href="#tabs-modern-2" data-toggle="tab">View Audits</a></li>
+                    <li class="nav-item" role="presentation"><a class="ace-nav-link " href="#tabs-modern-3" data-toggle="tab">Report</a></li>
+                    <li class="nav-item" role="presentation"><a class="ace-nav-link " href="#tabs-modern-4" data-toggle="tab">My Profile</a></li>
+                    <li class="nav-item" role="presentation"><a class="ace-nav-link " href="#tabs-modern-5" data-toggle="tab">Support</a></li>
+                </ul>
+                <div class="tab-content custom-tab-content-pad my-4 mb-lg-5">
+                    <div class="tab-pane fade active show" id="tabs-modern-1">
+                        <div class="ace-card p-lg-4 p-2">
+                            <div class="row mt-0">
+                                <div class="col-lg-4  mt-3">
+                                    <a href="/auto" class="ace-claim-link">
+                                        <span>Auto</span>
+                                        <span class="ace-right-arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </div>
+                                <div class="col-lg-4  mt-3">
+                                    <a href="/subrogation" class="ace-claim-link">
+                                        <span>Subrogation</span>
+                                        <span class="ace-right-arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </div>
+                                <div class="col-lg-4 mt-3">
+                                    <a href="/specialty" class="ace-claim-link">
+                                        <span>Heavy/Specialty</span>
+                                        <span class="ace-right-arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row mt-0 mb-3">
+                                <div class="col-lg-4 mt-3">
+                                    <a href="/property" class="ace-claim-link">
+                                        <span>Property</span>
+                                        <span class="ace-right-arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </div>
+                                <div class="col-lg-4 mt-3">
+                                    <a href="/total-loss" class="ace-claim-link">
+                                        <span>Auto Total Loss</span>
+                                        <span class="ace-right-arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </div>
+                                <div class="col-lg-4 mt-3">
+                                    <a href="/photo-quote" class="ace-claim-link">
+                                        <span>PhotoQuote</span>
+                                        <span class="ace-right-arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tabs-modern-2">
+                        <div class="ace-card p-lg-4 p-2">
+                            <div class="row mt-0">
+                                <div class="col-1 text-right">
+                                    <span class="ace-span ace-gray">Office:</span>
+                                </div>
+                                <div class="col-11">
+                                    <span class="ace-span ace-black font-weight-bold">AMERICAN COMPUTER ESTIMATING - WEST CHESTER</span>
+                                </div>
+                            </div>
+                            <div class="row mt-0">
+                                <div class="col-1 mt-3 text-right">
+                                    <span class="ace-span ace-gray">Rep:</span>
+                                </div>
+                                <div class="col-11 mt-3">
+                                    <span class="ace-span ace-black font-weight-bold">ROBERT GIZZIO Company Manager</span>
+                                </div>
+                            </div>
+                            <div class="row mt-0">
+                                <div class="col-12 mt-3">
+                                    <span class="ace-span ace-black">Pending and completed files for your company</span>
+                                </div>
+                            </div>
+                            <div class="row mt-0">
+                                <div class="col-12 mt-3">
+                                    <a class="btn ace-btn-login" href="#"><span class="">View files</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tabs-modern-3">
+                        <div class="ace-card p-lg-4 p-2">
+                            <div class="row mt-0">
+                                <div class="col-12 text-center">
+                                    <span class="ace-span ace-black">Company:</span>
+                                    <span class="ace-span ace-black font-weight-bold">AMERICAN COMPUTER ESTIMATING - WEST CHESTER</span>
+                                </div>
+                            </div>
+                            <div class="row mt-0">
+                                <div class="col-12 col-md-6 mt-3">
+                                    <div class="form-wrap">
+                                        <label class="ace-span ace-black" style="font-size: 18px;">Report</label>
+                                        <select class="form-control ace-span ace-black">
+                                            <option value="0">Auto Results - Summary</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-wrap mt-3">
+                                        <label class="ace-span ace-black">Include Office(s):</label>
+                                        <div class="form-wrap mt-3">
+                                            <label class="checkbox-inline checkbox-inline-lg checkbox-danger">
+                                                <input autocomplete="off" type="checkbox" value="true" class="checkbox-custom">
+                                                <span class="ace-span ace-black">All Offices</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-0">
+                                <div class="col-12 mt-3">
+                                    <span class="ace-span ace-gray" style="font-size:16px;">When running reports after 12:00 pm EDT, files available for reporting are delayed one day (the files closed today will not appear). When running reports before noon EDT, files are delayed two days.</span>
+                                </div>
+                            </div>
+                            <div class="row mt-0">
+                                <div class="col-12 mt-3">
+                                    <a class="btn ace-btn-login" href="#"><span class="">View Report</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tabs-modern-4">
+                        @await Component.InvokeAsync("ProfileSettingsComponent")
+                    </div>
+                    <div class="tab-pane fade" id="tabs-modern-5">
+                        @await Component.InvokeAsync("ContactUsComponent")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

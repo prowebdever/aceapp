@@ -1,0 +1,475 @@
+﻿@using AceApp.Data
+@model AceApp.Data.SubrogationClaimDto;
+@{
+    ViewData["Title"] = "Auto Submission";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="ace-body section">
+    <div class="container py-4">
+        <div class="row mt-0 mx-0">
+            <div class="col-auto ace-btn-back mt-2" onclick="history.back();">
+                <b class="">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </b>
+                <span class="ml-2 ace-span ace-black">Claims Portal</span>
+            </div>
+            <div class="col-md-8 mt-2 d-flex align-items-center">
+                <span class="ace-sub-title">SubReview Submission Form</span>
+            </div>
+        </div>
+        <div class="ace-card p-lg-4 p-2 mt-lg-4 mt-2">
+            <form asp-action="SaveSubrogationSubmission" enctype="multipart/form-data" asp-controller="Claims" method="POST" data-ajax="true" data-ajax-update="response" data-ajax-begin="onBegin" data-ajax-complete="onComplete" data-ajax-failure="onFailed" data-ajax-success="onClaimSaveSuccess">
+                <div id="response"></div>
+                <div class="row m-0">
+                    <div class="col-12 ace-blue-border">
+                        <span>Company</span>
+                    </div>
+                </div>
+                <!-- Company part -->
+                <div class="row mt-0">
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.CompanyName, "Company Name")
+                            @Html.TextBoxFor(x => x.CompanyName, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Company Name", autocomplete = "off", @readonly="readonly" })
+                            @Html.ValidationMessageFor(x => x.CompanyName)
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.Office, "Office")
+                            @Html.TextBoxFor(x => x.Office, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Office", autocomplete = "off", @readonly="readonly" })
+                            @Html.ValidationMessageFor(x => x.Office)
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-0">
+                    <div class="col-md-3 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.AceNo, "ACE #")
+                            @Html.TextBoxFor(x => x.AceNo, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "D012A", autocomplete = "off", @readonly="readonly" })
+                            @Html.ValidationMessageFor(x => x.AceNo)
+                        </div>
+                    </div>
+                    <div class="col-md-3 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.WorkPhone, "Work Phone")
+                            @Html.TextBoxFor(x => x.WorkPhone, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "###-###-####", autocomplete = "off", @readonly="readonly" })
+                            @Html.ValidationMessageFor(x => x.WorkPhone)
+                        </div>
+                    </div>
+                    <div class="col-md-3 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.Extension, "Extension")
+                            @Html.TextBoxFor(x => x.Extension, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "", autocomplete = "off", @readonly="readonly" })
+                            @Html.ValidationMessageFor(x => x.Extension)
+                        </div>
+                    </div>
+                    <div class="col-md-3 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.FaxNumber, "Your Fax Number")
+                            @Html.TextBoxFor(x => x.FaxNumber, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "###-###-####", autocomplete = "off", @readonly="readonly" })
+                            @Html.ValidationMessageFor(x => x.FaxNumber)
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-0">
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.SubmittedBy, "Submitted by")
+                            @Html.TextBoxFor(x => x.SubmittedBy, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "User name", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.SubmittedBy)
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.Email, "Email")
+                            @Html.TextBoxFor(x => x.Email, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Email", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.Email)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Claim part -->
+                <div class="row m-0">
+                    <div class="col-12 ace-blue-border mt-md-4 mt-2">
+                        <span>Claim</span>
+                    </div>
+                </div>
+                <div class="row mt-0">
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.DescriptionOfLoss, "Description of Loss")
+                            @Html.TextAreaFor(x => x.DescriptionOfLoss, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Description of Loss", autocomplete = "off", rows="5" })
+                            @Html.ValidationMessageFor(x => x.DescriptionOfLoss)
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.LossType, "Loss Type:")
+                            @foreach (var lossType in Model.LossTypes.Select((value, i) => new { i, value }))
+                            {
+                                <div class="form-wrap mt-2">
+                                    @Html.RadioButtonFor(x=> x.LossType, @lossType.i, new {@checked = "checked"})
+                                    <label class="ml-2 mb-0">@lossType.value</label>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-0">
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.ClaimNo, "Claim #")
+                            @Html.TextBoxFor(x => x.ClaimNo, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Claim #", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.ClaimNo)
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.PolicyNumber, "Policy Number")
+                            @Html.LabelFor(x => x.PolicyNumber, "optional", new { @class="label-optional"})
+                            @Html.TextBoxFor(x => x.PolicyNumber, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Policy Number", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.PolicyNumber)
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-0">
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.Deductible, "Deductible")
+                            @Html.LabelFor(x => x.Deductible, "optional", new { @class="label-optional"})
+                            @Html.TextBoxFor(x => x.Deductible, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Deductible", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.Deductible)
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.DayOfLoss, "DOL")
+                            @Html.LabelFor(x => x.DayOfLoss, "optional", new { @class="label-optional"})
+                            @Html.TextBoxFor(x => x.DayOfLoss, new {@type = "date", @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Date of Loss", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.DayOfLoss)
+                        </div>
+                    </div>
+                </div>
+                <!-- Insured part -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <span class="ace-sub-title">Insured</span>
+                    </div>
+                </div>
+                <div class="row mt-0">
+                    <div class="col-md-3 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.InsuredLastNameOrBusinessName, "Last Name or Business Name")
+                            @Html.TextBoxFor(x => x.InsuredLastNameOrBusinessName, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Last Name", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.InsuredLastNameOrBusinessName)
+                        </div>
+                    </div>
+                    <div class="col-md-3 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.InsuredFirstName, "First Name")
+                            @Html.LabelFor(x => x.InsuredFirstName, "optional", new { @class="label-optional"})
+                            @Html.TextBoxFor(x => x.InsuredFirstName, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "First Name", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.InsuredFirstName)
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-0">
+                    <div class="col-12 mt-3">
+                        <div class="form-wrap">
+                            <label class="checkbox-inline custom-inline-checkbox-top checkbox-inline-lg">
+                                @Html.CheckBoxFor(x => x.InsuredSameVehicleOwner) Insured is the same as Vehicle owner
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Vehicle Owner Part -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <span class="ace-sub-title">Vehicle Owner</span>
+                    </div>
+                </div>
+                <div class="row mt-0">
+                    <div class="col-md-3 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.VehicleOwnerLastNameOrBusinessName, "Last Name or Business Name")
+                            @Html.TextBoxFor(x => x.VehicleOwnerLastNameOrBusinessName, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Last Name", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.VehicleOwnerLastNameOrBusinessName)
+                        </div>
+                    </div>
+                    <div class="col-md-3 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.VehicleOwnerFirstName, "First Name")
+                            @Html.LabelFor(x => x.VehicleOwnerFirstName, "optional", new { @class="label-optional"})
+                            @Html.TextBoxFor(x => x.VehicleOwnerFirstName, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "First Name", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.VehicleOwnerFirstName)
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-0">
+                    <div class="col-12 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.ClaimComments, "Comments")
+                            @Html.LabelFor(x => x.ClaimComments, "optional", new { @class="label-optional"})
+                            @Html.TextAreaFor(x => x.ClaimComments, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Comments", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.ClaimComments)
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vehicle part -->
+                <div class="row m-0">
+                    <div class="col-12 ace-blue-border mt-md-4 mt-2">
+                        <span>Vehicle</span>
+                    </div>
+                </div>
+                <div class="row mt-0">
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.VehicleNo, "Vin #")
+                            @Html.LabelFor(x => x.VehicleNo, "optional", new { @class="label-optional"})
+                            @Html.TextBoxFor(x => x.VehicleNo, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Vin #", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.VehicleNo)
+                            <span id="vin_error" style="color: red; display: none;">VIN not available</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.VehicleYear, "Year")
+                            @Html.TextBoxFor(x => x.VehicleYear, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Year", autocomplete = "off", maxLength="4" })
+                            @Html.ValidationMessageFor(x => x.VehicleYear)
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-0">
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.VehicleMake, "Make")
+                            @Html.TextBoxFor(x => x.VehicleMake, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Make", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.VehicleMake)
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.VehicleModel, "Model")
+                            @Html.TextBoxFor(x => x.VehicleModel, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Model", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.VehicleModel)
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-0">
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.VehicleOdometer, "Odometer")
+                            @Html.LabelFor(x => x.VehicleOdometer, "optional", new { @class="label-optional"})
+                            @Html.TextBoxFor(x => x.VehicleOdometer, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Odometer", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.VehicleOdometer)
+                        </div>
+                    </div>
+                </div>
+                <!-- Contact part -->
+                <div class="row m-0">
+                    <div class="col-12 ace-blue-border mt-md-4 mt-2">
+                        <span>Contact</span>
+                    </div>
+                </div>
+                <div class="row mt-0">
+                    <div class="col-md-3 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.ContactAdverseLastNameOrBusinessName, "Last Name or Business Name")
+                            @Html.TextBoxFor(x => x.ContactAdverseLastNameOrBusinessName, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Last Name", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.ContactAdverseLastNameOrBusinessName)
+                        </div>
+                    </div>
+                    <div class="col-md-3 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.ContactAdverseFirstName, "First Name")
+                            @Html.LabelFor(x => x.ContactAdverseFirstName, "optional", new { @class="label-optional"})
+                            @Html.TextBoxFor(x => x.ContactAdverseFirstName, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "First Name", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.ContactAdverseFirstName)
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.ContactPhoneNumber, "Phone Number")
+                            @Html.TextBoxFor(x => x.ContactPhoneNumber, new { @class = "ace-form-input form-control-has-validation form-control-last-child  phone-us", placeholder = "###-###-####", autocomplete = "off" })
+                            @Html.ValidationMessageFor(x => x.ContactPhoneNumber)
+                        </div>
+                    </div>
+                </div>
+                <!-- Liability percent -->
+                <div class="row mt-0">
+                    <div class="col-md-3 mt-3">
+                        <div class="form-wrap">
+                            <input type="radio" id="ability_accept" name="ability_accept" checked="checked" value="true" />
+                            <label class="ml-2 mb-0">Liability accepted 100%</label>
+                        </div>
+                        <div class="form-wrap mt-2">
+                            <input type="radio" id="ability_accept" name="ability_accept" value="false" />
+                            <label class="ml-2 mb-0">Present Audit liability at</label>
+                        </div>
+                        <select class="form-control ace-form-input" id="abilityPercent" disabled>
+                            <option value="0">Percentage (%)</option>
+                            @for(int i=1; i< 20; i++)
+                            {
+                                <option value="@(i*5)">@(i*5) % </option>
+                            }
+                        </select>
+                        @Html.HiddenFor(x => x.LiabilityPercent)
+                    </div>
+                </div>
+
+                <div class="row mt-0">
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.IsReachAgreement, "Reach Agreement")
+                            <div class="form-wrap mt-2">
+                                @Html.RadioButtonFor(x=> x.IsReachAgreement, "true", new {@checked = "checked"})
+                                <label class="ml-2 mb-0">Yes</label>
+                                @Html.RadioButtonFor(x=> x.IsReachAgreement, "false", new {@class = "ml-5"})
+                                <label class="ml-2 mb-0">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-0 div_permitted hide">
+                    <div class="col-12 mt-3">
+                        <div class="form-wrap">
+                            @Html.LabelFor(x => x.IsPermittedGatherMoreInfo, "Is ACE permitted to contact the adverse/contractor to gather more information if necessary?")
+                            <div class="form-wrap mt-2">
+                                @Html.RadioButtonFor(x=> x.IsPermittedGatherMoreInfo, true, new {@checked = "true"})
+                                <label class="ml-2 mb-0">Yes</label>
+                                @Html.RadioButtonFor(x=> x.IsPermittedGatherMoreInfo, false, new {@class = "ml-5"})
+                                <label class="ml-2 mb-0">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Attachement files -->
+                <div class="row">
+                    <div class="col-12 mt-3">
+                        <div class="form-wrap">
+                            <label style="display:block">Attachment files: </label>
+                            <label class="ace-gray">To attach a file related to this claim use the browse button and navigate your computer to locate and attach the necessary file.</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-0">
+                    <div class="col-12 mt-3 d-flex">
+                        <div id="image_shows">
+                        </div>
+                        <div id="img_upload" class="ace-img-upload">
+                            <div class="rounded-circle ace-img-upload-circle p-1"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></div>
+                        </div>
+                    </div>
+                    <input type="file" id="files" name="files" multiple style="position:absolute; opacity: 0; left:-1500px;" accept="image/*" />
+                </div>
+                <!-- Submit -->
+                <div class="row mt-3">
+                    <div class="col-md-6 mt-3">
+                        <div class="form-wrap">
+                            <button class="btn ace-btn-register btn-block">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <input type="file" id="real_file" name="real_file" multiple style="position:absolute; opacity: 0; left:-1000px;" accept="image/*" />
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('input[type=radio][name=ability_accept]').change(function() {
+            if (this.value == 'false') {
+                $('#abilityPercent').prop('disabled', false);
+                $('#abilityPercent').val(50);
+                $('#LiabilityPercent').val(100);
+            }else{
+                $('#abilityPercent').prop('disabled', true);
+                $('#abilityPercent').val(0);
+                $('#LiabilityPercent').val(100);
+            }
+        });
+        
+        $('#abilityPercent').on('change', function(){
+            $('#LiabilityPercent').val($(this).val());
+        });
+
+        $('input[type=radio][name=IsReachAgreement]').change(function() {
+            if (this.value == 'false') {
+                $('.div_permitted').show();
+            }else{
+                $('.div_permitted').hide();
+            }
+        });
+
+        $('#img_upload').on('click', function(){
+            $("#real_file").click();
+        });
+        var real_files = new DataTransfer();
+        const realFileInput = document.getElementById('files');
+        $("#real_file").on("change", function(e) {
+            var files = e.target.files;
+            
+            for (var i = 0; i < files.length; i++) {
+                real_files.items.add(files[i]);
+
+                var fileReader = new FileReader();
+                fileReader.onload = (function(e) {
+                    var imgHtml = `<div class='ace-img-card'><img src='${e.target.result}' title='${e.target.fileName}'/><span class='ace-img-remove'><i class="fa fa-minus-circle fa-2x"></i></span></div>`;
+                    $("#image_shows").append(imgHtml);
+
+                    
+
+                });
+                fileReader.fileName = files[i].name;
+                fileReader.readAsDataURL(files[i]);
+            }
+            realFileInput.files = real_files.files;
+            console.log(real_files);
+        });
+        $(document).on("click", "#image_shows .ace-img-card .ace-img-remove", function() {
+            real_files.items.remove($(this).parent(".ace-img-card").index());
+            realFileInput.files = real_files.files;
+            $(this).parent(".ace-img-card").remove();
+            
+        });
+
+        $('#VehicleNo').on('change', function(){
+            $.ajax({
+                url: `https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvalues/${$('#VehicleNo').val()}?format=json`,
+                type: 'GET',
+                dataType: 'json', // added data type
+                success: function(data) {
+                    if (data.Results && data.Results.length > 0) {
+                        var model = data.Results[0]
+                        if (model.ErrorCode === "0") {
+                            $("#vin_error").hide();
+                            $("#VehicleModel").val(model.Model);
+                            $("#VehicleMake").val(model.Make);
+                            $("#VehicleYear").val(model.ModelYear);
+                        } else {
+                            $("#vin_error").show();
+                            $("#VehicleModel").val('');
+                            $("#VehicleMake").val('');
+                            $("#VehicleYear").val('');
+                        }
+                    }else{
+                        $("#vin_error").show();
+                        $("#VehicleModel").val('');
+                        $("#VehicleMake").val('');
+                        $("#VehicleYear").val('');
+                    }
+                    
+                }
+            })
+        });
+    });
+</script>
+}

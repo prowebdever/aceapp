@@ -1,0 +1,93 @@
+﻿@model AceApp.Data.UserDetailDto;
+<div class="ace-card p-lg-4 p-2">
+    <form id="formRegister" asp-action="UpdateUser" asp-controller="Account" method="POST" data-ajax="true" data-ajax-update="response" data-ajax-begin="onBegin" data-ajax-complete="onComplete" data-ajax-failure="onFailed" data-ajax-success="onClaimSaveSuccess" enctype="multipart/form-data">
+        <div id="response"></div>
+        @Html.HiddenFor(x => x.UserId)
+        @Html.HiddenFor(x => x.Id)
+        <div class="row mt-0">
+            <div class="col-md-6 mt-3">
+                <div class="form-wrap">
+                    @Html.LabelFor(x => x.CompanyName, "Company Name")
+                    @Html.TextBoxFor(x => x.CompanyName, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Company Name", autocomplete = "off" })
+                    @Html.ValidationMessageFor(x => x.CompanyName)
+                </div>
+            </div>
+            <div class="col-md-6 mt-3">
+                <div class="form-wrap">
+                    @Html.LabelFor(x => x.Office, "Office")
+                    @Html.TextBoxFor(x => x.Office, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Office", autocomplete = "off" })
+                    @Html.ValidationMessageFor(x => x.Office)
+                </div>
+            </div>
+        </div>
+        <div class="row mt-0">
+            <div class="col-md-6 mt-3">
+                <div class="form-wrap">
+                    @Html.LabelFor(x => x.Name, "Your Name")
+                    @Html.TextBoxFor(x => x.Name, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Your Name", autocomplete = "off" })
+                    @Html.ValidationMessageFor(x => x.Name)
+                </div>
+            </div>
+            <div class="col-md-6 mt-3">
+                <div class="form-wrap">
+                    @Html.LabelFor(x => x.Email, "Your Email Address")
+                    @Html.TextBoxFor(x => x.Email, new { @class = "ace-form-input form-control-has-validation form-control-last-child", @type="email", placeholder = "Email Address", autocomplete = "off" })
+                    @Html.ValidationMessageFor(x => x.Email)
+                </div>
+            </div>
+        </div>
+        <div class="row mt-0">
+            <div class="col-md-3 mt-3">
+                <div class="form-wrap">
+                    @Html.LabelFor(x => x.PhoneNumber, "Your Phone Number")
+                    @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "ace-form-input form-control-has-validation form-control-last-child phone-us", placeholder = "###-###-####", autocomplete = "off" })
+                    @Html.ValidationMessageFor(x => x.PhoneNumber)
+                </div>
+            </div>
+            <div class="col-md-3 mt-3">
+                <div class="form-wrap">
+                    @Html.LabelFor(x => x.Extension, "Extension")
+                    @Html.TextBoxFor(x => x.Extension, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "", autocomplete = "off" })
+                    @Html.ValidationMessageFor(x => x.Extension)
+                </div>
+            </div>
+            <div class="col-md-6 mt-3">
+                <div class="form-wrap">
+                    @Html.LabelFor(x => x.FaxNumber, "Your Fax Number")
+                    @Html.TextBoxFor(x => x.FaxNumber, new { @class = "ace-form-input form-control-has-validation form-control-last-child phone-us", placeholder = "###-###-####", autocomplete = "off" })
+                    @Html.ValidationMessageFor(x => x.FaxNumber)
+                </div>
+            </div>
+        </div>
+        <div class="row mt-0">
+            <div class="col-md-6 mt-3">
+                <div class="form-wrap">
+                    @Html.LabelFor(x => x.Password, "Password")
+                    @Html.PasswordFor(x => x.Password, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Password", autocomplete = "off" })
+                    @Html.ValidationMessageFor(x => x.Password)
+                </div>
+            </div>
+            <div class="col-md-6 mt-3">
+                <div class="form-wrap">
+                    @Html.LabelFor(x => x.ConfirmPassword, "Confirm Password")
+                    @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "ace-form-input form-control-has-validation form-control-last-child", placeholder = "Confirm Password", autocomplete = "off" })
+                    @Html.ValidationMessageFor(x => x.ConfirmPassword)
+                </div>
+            </div>
+        </div>
+        <div class="row mt-0">
+            <div class="col-12 mt-3">
+                <span class="ace-span ace-gray" style="font-size:16px;">This form submits your request for changes to our staff. Your account will NOT be immediately changed. For security purposes our staff will review your request and you will be notified via email when your account has been updated. This process may take up to 48 hours. Thank You.</span>
+            </div>
+        </div>
+        <div class="row mt-0">
+            <div class="col-12 mt-3">
+                <button class="btn ace-btn-register"><span class="">Save Changes</span></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
